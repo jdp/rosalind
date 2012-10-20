@@ -26,10 +26,7 @@ def problem(dataset=None):
                 aa = None
             amino_acids[aa].append(codon)
 
-    pool = []
-    for aa in dataset:
-        pool.append(amino_acids[aa])
-    pool.append(amino_acids[None])
+    pool = [amino_acids[aa] for aa in dataset] + [amino_acids[None]]
     return reduce(mul, map(len, pool))
 
 
