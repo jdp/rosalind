@@ -4,7 +4,7 @@ from collections import Counter, defaultdict
 
 def problem(dataset=None):
     """
-    http://rosalind.info/problems/cons/
+    http://rosalind.info/problems/gc/
 
     Given: At most 10 DNA strings in FASTA format of length at most 1 kbp each.
 
