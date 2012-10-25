@@ -27,9 +27,8 @@ def problem(dataset=None):
         dataset = open("datasets/rosalind_eval.txt").read()
 
     # Parse input from dataset
-    lines = dataset.strip().splitlines()
-    m, n = map(int, lines[0].split())
-    A = map(float, lines[1].split())
+    input = dataset.strip().split()
+    m, n, A = (int(input[0]), int(input[1]), map(float, input[2:]))
 
     # Find expected value for each GC-content in A
     return [(n - m + 1) * probsum(gc_content) ** m for gc_content in A]
