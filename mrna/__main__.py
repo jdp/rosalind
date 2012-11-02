@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from collections import defaultdict
 from operator import mul
+from os.path import dirname
 
 
 def problem(dataset=None):
@@ -14,10 +15,10 @@ def problem(dataset=None):
 
     """
     if not dataset:
-        dataset = open("datasets/rosalind_mrna.txt").read()
+        dataset = open(dirname(__file__) + "/rosalind_mrna.txt").read()
 
     amino_acids = defaultdict(list)
-    with open("codons.txt") as f:
+    with open(dirname(__file__) + "/../codons.txt") as f:
         for line in f:
             if not line.strip():
                 continue

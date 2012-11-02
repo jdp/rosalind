@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+from os.path import dirname
+
+
 def problem(dataset=None):
     """
     Given two strings s and t of equal length, the Hamming distance between s
@@ -10,7 +14,7 @@ def problem(dataset=None):
 
     """
     if not dataset:
-        dataset = open("datasets/rosalind_hamm.txt").read()
+        dataset = open(dirname(__file__) + "/rosalind_hamm.txt").read()
     s, t = dataset.strip().splitlines()
     return len(filter(lambda pair: pair[0] != pair[1], zip(s, t)))
 

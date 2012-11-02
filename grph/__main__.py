@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from collections import defaultdict
-from util import parse_fasta
+from os.path import dirname
+
+from ..util import parse_fasta
 
 
 def problem(dataset=None):
@@ -14,7 +16,7 @@ def problem(dataset=None):
 
     """
     if not dataset:
-        dataset = open("datasets/rosalind_grph.txt").read()
+        dataset = open(dirname(__file__) + "/rosalind_grph.txt").read()
     records = parse_fasta(dataset)
     suffixes = defaultdict(list)
     for record_id, bps in records.iteritems():

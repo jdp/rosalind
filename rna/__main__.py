@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+from os.path import dirname
+
+
 def problem(dataset=None):
     """
     An RNA string is formed from the alphabet containing A, C, G, and U.
@@ -11,7 +15,7 @@ def problem(dataset=None):
 
     """
     if not dataset:
-        dataset = open("datasets/rosalind_rna.txt").read()
+        dataset = open(dirname(__file__) + "/rosalind_rna.txt").read()
     return dataset.replace('T', 'U')
 
 if __name__ == '__main__':

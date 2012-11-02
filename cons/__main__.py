@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from collections import Counter
+from os.path import dirname
 
 
 def problem(dataset=None):
@@ -15,7 +16,7 @@ def problem(dataset=None):
 
     """
     if not dataset:
-        dataset = open("datasets/rosalind_cons.txt").read()
+        dataset = open(dirname(__file__) + "/rosalind_cons.txt").read()
     dnas = [line.strip() for line in dataset.splitlines()]
     counts = map(Counter, zip(*dnas))
     consensus = [c.most_common(1)[0][0] for c in counts]

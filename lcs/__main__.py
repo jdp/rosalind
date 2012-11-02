@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from difflib import SequenceMatcher
 from itertools import combinations
+from os.path import dirname
 
 
 def problem(dataset=None):
@@ -14,7 +15,7 @@ def problem(dataset=None):
 
     """
     if not dataset:
-        dataset = open("datasets/rosalind_lcs.txt").read()
+        dataset = open(dirname(__file__) + "/rosalind_lcs.txt").read()
     dnas = [l.strip() for l in dataset.splitlines() if l.strip()]
 
     def lcs(a, b):

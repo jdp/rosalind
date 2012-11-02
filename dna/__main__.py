@@ -1,4 +1,6 @@
+# -*- coding: utf-8 -*-
 from collections import Counter
+from os.path import dirname
 
 
 def problem(dataset=None):
@@ -18,7 +20,7 @@ def problem(dataset=None):
     """
     freq = Counter()
     if not dataset:
-        dataset = open("datasets/rosalind_dna.txt").read()
+        dataset = open(dirname(__file__) + "/rosalind_dna.txt").read()
     for acid in dataset:
         freq.update([acid])
     return "%(A)s %(C)s %(G)s %(T)s" % freq

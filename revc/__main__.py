@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+from os.path import dirname
 from string import maketrans
 
 
@@ -15,7 +17,7 @@ def problem(dataset=None):
 
     """
     if not dataset:
-        dataset = open("datasets/rosalind_revc.txt").read()
+        dataset = open(dirname(__file__) + "/rosalind_revc.txt").read()
     return dataset[::-1].translate(maketrans('ATCG', 'TAGC'))
 
 if __name__ == '__main__':

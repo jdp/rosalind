@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from os.path import dirname
 
 
 def problem(dataset=None):
@@ -17,7 +18,7 @@ def problem(dataset=None):
 
     """
     if not dataset:
-        dataset = open("datasets/rosalind_prob.txt").read()
+        dataset = open(dirname(__file__) + "/rosalind_prob.txt").read()
 
     # Parse dataset
     A = map(float, dataset.split())

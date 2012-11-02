@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+from os.path import dirname
+
+
 def problem(dataset=None):
     """
     The 20 commonly occurring amino acids are abbreviated by using the majority
@@ -16,9 +20,9 @@ def problem(dataset=None):
 
     """
     if not dataset:
-        dataset = open("datasets/rosalind_prot.txt").read()
+        dataset = open(dirname(__file__) + "/rosalind_prot.txt").read()
     mapping = {}
-    with open("codons.txt") as f:
+    with open(dirname(__file__) + "/../codons.txt") as f:
         for line in f:
             if not line.strip():
                 continue

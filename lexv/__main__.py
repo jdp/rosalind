@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from functools import cmp_to_key
 from itertools import chain, product
+from os.path import dirname
 
 
 def problem(dataset=None):
@@ -16,7 +17,7 @@ def problem(dataset=None):
 
     """
     if not dataset:
-        dataset = open("datasets/rosalind_lexv.txt").read()
+        dataset = open(dirname(__file__) + "/rosalind_lexv.txt").read()
 
     # Parse input from dataset
     input = dataset.strip().split()

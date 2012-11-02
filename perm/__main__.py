@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from itertools import count, islice, permutations
+from os.path import dirname
 
 
 def problem(dataset=None):
@@ -13,7 +14,7 @@ def problem(dataset=None):
 
     """
     if not dataset:
-        dataset = open("datasets/rosalind_perm.txt").read()
+        dataset = open(dirname(__file__) + "/rosalind_perm.txt").read()
     n = int(dataset.strip())
     return permutations(islice(count(start=1), 0, n))
 

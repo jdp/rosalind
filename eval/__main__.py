@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from os.path import dirname
 
 
 def problem(dataset=None):
@@ -24,7 +25,7 @@ def problem(dataset=None):
         return ((gc_content ** 2) + ((1 - gc_content) ** 2)) / 2
 
     if not dataset:
-        dataset = open("datasets/rosalind_eval.txt").read()
+        dataset = open(dirname(__file__) + "/rosalind_eval.txt").read()
 
     # Parse input from dataset
     input = dataset.strip().split()

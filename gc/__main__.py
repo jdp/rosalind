@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from collections import Counter, defaultdict
+from os.path import dirname
 
 
 def problem(dataset=None):
@@ -14,7 +15,7 @@ def problem(dataset=None):
 
     """
     if not dataset:
-        dataset = open("datasets/rosalind_gc.txt").read()
+        dataset = open(dirname(__file__) + "/rosalind_gc.txt").read()
     records = defaultdict(str)
     record_id = None
     for line in [l.strip() for l in dataset.splitlines()]:
