@@ -20,12 +20,10 @@ def mate(a, b):
 
 
 def problem(k, m, n):
-    population = ["AA"] * k + ["Aa"] * m + ["aa"] * n
-    possible = list(chain(*[mate(a, b) for a, b in combinations(population, 2)]))
-    print possible
-    doms = [p for p in possible if "A" in p]
-    print doms
-    return float(len(doms)) / len(possible)
+    pool = ["AA"] * k + ["Aa"] * m + ["aa"] * n
+    possible = list(chain(*[mate(a, b) for a, b in combinations(pool, 2)]))
+    dominants = [p for p in possible if "A" in p]
+    return float(len(dominants)) / len(possible)
 
 
 if __name__ == '__main__':
