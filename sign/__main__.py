@@ -7,24 +7,23 @@ of all such permutations (you may list the signed permutations in any order).
 >>> format(problem(2))
 8
 -1 -2
-1 -2
 -1 2
+1 -2
 1 2
 -2 -1
-2 -1
 -2 1
+2 -1
 2 1
 """
 
-from itertools import combinations, permutations
+from itertools import permutations, product
 
 
 def problem(n):
     l = range(1, n + 1)
     for p in permutations(l):
-        for i in range(len(p) + 1):
-            for c in combinations(range(len(p)), i):
-                yield map(lambda t: t[1] if t[0] in c else -t[1], enumerate(p))
+        for coefs in product([-1, 1], repeat=n):
+            yield map(lambda t: t[0] * t[1], zip(coefs, p))
 
 
 def format(results):
