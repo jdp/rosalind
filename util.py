@@ -111,3 +111,8 @@ def monoisotopic_mass(acid):
             'V': 99.06841,
             'W': 186.07931,
             'Y': 163.06333}.get(acid)
+
+
+def reverse_complement(dna):
+    from string import maketrans
+    return dna[::-1].translate(maketrans('ATCG', 'TAGC'))
