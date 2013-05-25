@@ -116,3 +116,105 @@ def monoisotopic_mass(acid):
 def reverse_complement(dna):
     from string import maketrans
     return dna[::-1].translate(maketrans('ATCG', 'TAGC'))
+
+
+def parse_newick(text):
+    import operator
+    from parcon import Alpha, Digit, ZeroOrMore, Optional, Forward, OneOrMore, Longest, flatten, InfixExpr, CharIn
+
+    labels = {}
+
+    class ZNode(object):
+        def __init__(self, label=None, length=None):
+            self.label = label
+            self.length = length
+            self.children = []
+            self.parent = None
+
+        def add_child(self, node):
+            node.parent = self
+            self.children.append(node)
+
+        def ancestors(self):
+            pairs = [(self, 0)]
+            node = self
+            while node.parent:
+                pairs.append((node.parent, pairs[-1][1] + 1))
+                node = node.parent
+            return pairs
+
+        def __str__(self):
+            return "{}[{}]:{}".format(
+                self.label,
+                ''.join(map(str, self.children)),
+                self.length
+            )
+
+        def __repr__(self):
+            s = "<%s" % (self.label or "?",)
+            if self.children:
+                s += " " + ", ".join(map(repr, self.children))
+            s += ">"
+            return s
+
+    def make_leaf(ast):
+        # print "leaf ast", ast
+        label = ast
+        node = ZNode(label=label)
+        if label:
+            labels[label] = node
+        return node
+
+    def make_internal(ast):
+        # print "internal ast", ast
+        if isinstance(ast[0], ZNode):
+            node = ZNode()
+            children = ast
+        else:
+            label = ast[-1]
+            node = ZNode(label=label)
+            if label:
+                labels[label] = node
+            children = ast[-2]
+        for n in children:
+            node.add_child(n)
+        return node
+
+    def test(args):
+        # print "matched:", args
+        return args
+
+    Name = ZeroOrMore(Alpha() | CharIn("_"))[''.join]
+    Leaf = Name
+    Node = Forward()
+    Internal = ("(" + InfixExpr(Node[lambda x: [x]], [(",", operator.add)]) + ")") + Optional(Name)
+    Node << (Internal[make_internal] | Leaf[make_leaf])
+    Tree = Node + ";"
+
+    return Tree.parse_string(text), labels
+
+
+def lcs(a, b):
+    lengths = [[0 for j in range(len(b)+1)] for i in range(len(a)+1)]
+    # row 0 and column 0 are initialized to 0 already
+    for i, x in enumerate(a):
+        for j, y in enumerate(b):
+            if x == y:
+                lengths[i+1][j+1] = lengths[i][j] + 1
+            else:
+                lengths[i+1][j+1] = \
+                    max(lengths[i+1][j], lengths[i][j+1])
+    # read the substring out from the matrix
+    result = []
+    x, y = len(a), len(b)
+    while x != 0 and y != 0:
+        if lengths[x][y] == lengths[x-1][y]:
+            x -= 1
+        elif lengths[x][y] == lengths[x][y-1]:
+            y -= 1
+        else:
+            assert a[x-1] == b[y-1]
+            result = [a[x-1]] + result
+            x -= 1
+            y -= 1
+    return result
