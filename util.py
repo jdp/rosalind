@@ -195,8 +195,11 @@ def parse_newick(text):
 
 
 def lcs(a, b):
+    """Return the longest common subsequence between iterables as a list.
+    """
+
     lengths = [[0 for j in range(len(b)+1)] for i in range(len(a)+1)]
-    # row 0 and column 0 are initialized to 0 already
+
     for i, x in enumerate(a):
         for j, y in enumerate(b):
             if x == y:
@@ -204,7 +207,7 @@ def lcs(a, b):
             else:
                 lengths[i+1][j+1] = \
                     max(lengths[i+1][j], lengths[i][j+1])
-    # read the substring out from the matrix
+
     result = []
     x, y = len(a), len(b)
     while x != 0 and y != 0:
@@ -217,4 +220,5 @@ def lcs(a, b):
             result = [a[x-1]] + result
             x -= 1
             y -= 1
+
     return result
