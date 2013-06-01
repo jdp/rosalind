@@ -73,6 +73,18 @@ def binomial(n, k):
     return accum
 
 
+def binomial_pmf(n, k, p):
+    return binomial(n, k) * p**k * (1 - p)**(n - k)
+
+
+def gc_p(x, s):
+    from operator import mul
+    gc = x / 2
+    at = (1 - x) / 2
+    pmf = {'G': gc, 'C': gc, 'A': at, 'T': at}
+    return reduce(mul, [pmf[c] for c in s])
+
+
 def reshape(l, n):
     return zip(*[iter(l)] * n)
 
