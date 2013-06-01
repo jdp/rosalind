@@ -11,19 +11,11 @@ to be created more than once.
 0.689
 """
 
-from operator import mul
-from ..util import binomial_pmf
+from ..util import binomial_pmf, gc_p
 
 
 def problem(N, x, s):
-    pmf = {
-        'G': x / 2,
-        'C': x / 2,
-        'A': (1 - x) / 2,
-        'T': (1 - x) / 2
-    }
-    p = reduce(mul, [pmf[c] for c in s])
-    return 1 - binomial_pmf(N, 0, p)
+    return 1 - binomial_pmf(N, 0, gc_p(x, s))
 
 
 if __name__ == '__main__':
